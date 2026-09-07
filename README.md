@@ -1,22 +1,21 @@
-# TikFinity Connector — คู่มือตั้งค่า IP / Port / Password
+# avotik — ตั้งค่าให้ TikFinity เชื่อมต่อได้
 
-คู่มือภาษาไทยสำหรับต่อ TikFinity เข้ากับ Minecraft ผ่านมอด TikFinity Connector (Fabric, Minecraft 26.2)
+คู่มือภาษาไทย: ตั้งค่า IP / Port / Password ให้ TikFinity ต่อเข้า Minecraft
 
 **อ่านคู่มือ:** https://aotgtr.github.io/tikfinity-connector-guide/
 
 ## ในคู่มือมีอะไร
 
-- มอดทำงานยังไง (TikTok → TikFinity → HTTP → เกม)
-- ติดตั้ง 2 แบบ: เล่นคนเดียว (client) และเปิดเซิร์ฟเวอร์ Fabric
-- 3 ช่องใน TikFinity (IP / Port / Password) คืออะไร และตรงกับค่าไหนในมอด
-- ค่าที่ต้องใส่ใน 3 สถานการณ์: เครื่องเดียวกัน · ในวง LAN · เซิร์ฟเวอร์ IP นอก
+- ไฟล์ `tikfinity.toml` อยู่ไหน และแต่ละค่าหมายถึงอะไร
+- ตั้งค่ายังไงตอนเล่นคนเดียว — เครื่องเดียวกัน และคนละเครื่องในวง LAN
+- ตั้งค่ายังไงตอนเปิดเซิร์ฟ Fabric
 - คำสั่ง `/tikfinity` สำหรับตั้งค่าในเกม
-- เปิด firewall / port forward
+- เปิด firewall และเช็คว่าต่อได้จริงไหม
 - ความปลอดภัย และการแก้ปัญหา
 
 ## ไฟล์
 
-- `index.html` — ตัวคู่มือ (หน้าเดียว ไม่มี dependency ภายนอกนอกจาก Google Fonts)
+- `index.html` — ตัวคู่มือ (หน้าเดียว)
 - `assets/` — ภาพประกอบ
 
 หน้าเว็บ deploy ผ่าน GitHub Pages จาก branch `main`

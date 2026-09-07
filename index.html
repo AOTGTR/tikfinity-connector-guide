@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikFinity Connector — คู่มือตั้งค่า IP / Port / Password</title>
+<meta name="description" content="วิธีตั้ง IP, Port และ Password ให้ TikFinity ต่อเข้า Minecraft — ทั้งเครื่องเดียวกัน, ในวง LAN และเซิร์ฟเวอร์ IP นอก">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f1f4;
+  --border: #dfe1e7;
+  --text: #14161c;
+  --muted: #5c6272;
+  --accent: #e0325a;
+  --accent-soft: #fde9ee;
+  --ok: #17794a;
+  --ok-soft: #e2f5ec;
+  --warn: #a35700;
+  --warn-soft: #fdf0dd;
+  --danger: #c02a2a;
+  --danger-soft: #fdeaea;
+  --code-bg: #14161c;
+  --code-text: #e8eaf0;
+  --shadow: 0 1px 2px rgba(20,22,28,.06), 0 8px 24px rgba(20,22,28,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0f14;
+    --surface: #161922;
+    --surface-2: #1d212c;
+    --border: #2a2f3d;
+    --text: #e9ebf1;
+    --muted: #98a0b3;
+    --accent: #ff5c7f;
+    --accent-soft: #2c1620;
+    --ok: #5ad19a;
+    --ok-soft: #12271e;
+    --warn: #f0b45e;
+    --warn-soft: #2a2013;
+    --danger: #ff7b7b;
+    --danger-soft: #2c1717;
+    --code-bg: #05070b;
+    --code-text: #dfe3ec;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0f14;
+  --surface: #161922;
+  --surface-2: #1d212c;
+  --border: #2a2f3d;
+  --text: #e9ebf1;
+  --muted: #98a0b3;
+  --accent: #ff5c7f;
+  --accent-soft: #2c1620;
+  --ok: #5ad19a;
+  --ok-soft: #12271e;
+  --warn: #f0b45e;
+  --warn-soft: #2a2013;
+  --danger: #ff7b7b;
+  --danger-soft: #2c1717;
+  --code-bg: #05070b;
+  --code-text: #dfe3ec;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans Thai", -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 20px 96px; }
+
+header.hero {
+  padding: 64px 0 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 44px;
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.25; margin: 0 0 14px; font-weight: 700; letter-spacing: -.01em; }
+.lede { font-size: 18px; color: var(--muted); margin: 0; max-width: 62ch; }
+
+h2 {
+  font-size: 26px;
+  margin: 56px 0 8px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  scroll-margin-top: 20px;
+}
+h2 .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-inline-end: 10px;
+  vertical-align: 3px;
+}
+h3 { font-size: 19px; margin: 32px 0 6px; font-weight: 600; }
+p { margin: 10px 0; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: var(--shadow);
+}
+.toc ol { margin: 6px 0 0; padding-inline-start: 20px; }
+.toc li { margin: 3px 0; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin: 18px 0;
+  box-shadow: var(--shadow);
+}
+.card h3 { margin-top: 0; }
+
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.note, .warn, .danger {
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  border: 1px solid transparent;
+  font-size: 15px;
+}
+.note { background: var(--ok-soft); border-color: color-mix(in srgb, var(--ok) 30%, transparent); }
+.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
+.danger { background: var(--danger-soft); border-color: color-mix(in srgb, var(--danger) 35%, transparent); }
+.note strong { color: var(--ok); }
+.warn strong { color: var(--warn); }
+.danger strong { color: var(--danger); }
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 12px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+  font-size: 13.5px;
+  line-height: 1.65;
+  margin: 12px 0;
+}
+code {
+  font-family: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+  font-size: .9em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
+.table-scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--border); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; background: var(--surface); }
+th, td { text-align: start; padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--surface-2); font-weight: 600; font-size: 14px; }
+tbody tr:last-child td { border-bottom: 0; }
+
+figure { margin: 24px 0; }
+figure img { max-width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+svg.diagram { width: 100%; height: auto; display: block; }
+.diagram-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.pill.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.pill.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.pill.danger { background: var(--danger-soft); color: var(--danger); border-color: transparent; }
+
+ul, ol { padding-inline-start: 22px; }
+li { margin: 4px 0; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 44px 0; }
+footer { color: var(--muted); font-size: 14px; padding-top: 28px; border-top: 1px solid var(--border); margin-top: 56px; }
+kbd {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12.5px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">Minecraft 26.2 · Fabric</span>
+  <h1>TikFinity Connector — ตั้งค่า IP / Port / Password</h1>
+  <p class="lede">คู่มือใส่ค่า 3 ช่องในหน้า Minecraft Connection ของ TikFinity ให้ต่อเข้าเกมได้ ทั้งเครื่องเดียวกัน ในวง LAN และเซิร์ฟเวอร์ IP นอก</p>
+</header>
+
+<nav class="toc" aria-label="สารบัญ">
+  <strong>สารบัญ</strong>
+  <ol>
+    <li><a href="#how">มอดนี้ทำงานยังไง</a></li>
+    <li><a href="#install">ติดตั้ง — เล่นคนเดียว vs เปิดเซิร์ฟเวอร์</a></li>
+    <li><a href="#fields">3 ช่องใน TikFinity คืออะไร</a></li>
+    <li><a href="#cases">3 สถานการณ์ + ค่าที่ต้องใส่</a></li>
+    <li><a href="#command">สั่งจากในเกมด้วย /tikfinity</a></li>
+    <li><a href="#firewall">เปิด Firewall / Port forward</a></li>
+    <li><a href="#security">ความปลอดภัย — อ่านก่อนเปิดออกเน็ต</a></li>
+    <li><a href="#trouble">แก้ปัญหา</a></li>
+  </ol>
+</nav>
+
+<h2 id="how"><span class="num">1</span>มอดนี้ทำงานยังไง</h2>
+<p>มอดเปิด <strong>HTTP server เล็ก ๆ ในเกม</strong> (เลียนแบบ API ของปลั๊กอิน ServerTap) แล้ว TikFinity ยิงคำสั่งเข้ามาที่ IP:Port นั้น เวลามีคนกดของขวัญ/ฟอลโลว์/คอมเมนต์ในไลฟ์ TikTok</p>
+
+<div class="diagram-frame">
+<svg class="diagram" viewBox="0 0 880 260" role="img" aria-label="แผนภาพ: TikTok Live ส่ง event เข้า TikFinity แล้วยิง HTTP มาที่มอดในเกม">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="2" opacity=".55">
+    <line x1="192" y1="96" x2="248" y2="96" marker-end="url(#arrow)"/>
+    <line x1="424" y1="96" x2="480" y2="96" marker-end="url(#arrow)"/>
+    <line x1="656" y1="96" x2="712" y2="96" marker-end="url(#arrow)"/>
+  </g>
+
+  <g>
+    <rect x="24" y="52" width="168" height="88" rx="12" fill="var(--surface-2)" stroke="var(--border)"/>
+    <text x="108" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--text)">TikTok Live</text>
+    <text x="108" y="112" text-anchor="middle" font-size="12.5" fill="var(--muted)">gift / follow / comment</text>
+  </g>
+  <g>
+    <rect x="248" y="52" width="176" height="88" rx="12" fill="var(--surface-2)" stroke="var(--border)"/>
+    <text x="336" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--text)">TikFinity</text>
+    <text x="336" y="112" text-anchor="middle" font-size="12.5" fill="var(--muted)">เว็บ/แอป ตั้งกฎ action</text>
+  </g>
+  <g>
+    <rect x="480" y="52" width="176" height="88" rx="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+    <text x="568" y="82" text-anchor="middle" font-size="15" font-weight="600" fill="var(--text)">มอด (HTTP server)</text>
+    <text x="568" y="104" text-anchor="middle" font-size="12.5" fill="var(--muted)">IP : Port</text>
+    <text x="568" y="122" text-anchor="middle" font-size="12" fill="var(--muted)">/v1/server · /v1/server/exec</text>
+  </g>
+  <g>
+    <rect x="712" y="52" width="144" height="88" rx="12" fill="var(--surface-2)" stroke="var(--border)"/>
+    <text x="784" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--text)">Minecraft</text>
+    <text x="784" y="112" text-anchor="middle" font-size="12.5" fill="var(--muted)">รันคำสั่งในเกม</text>
+  </g>
+
+  <text x="220" y="176" text-anchor="middle" font-size="12" fill="var(--muted)">event</text>
+  <text x="452" y="176" text-anchor="middle" font-size="12" fill="var(--muted)">HTTP POST</text>
+  <text x="684" y="176" text-anchor="middle" font-size="12" fill="var(--muted)">/summon, /give …</text>
+
+  <rect x="480" y="196" width="376" height="44" rx="10" fill="var(--surface-2)" stroke="var(--border)" stroke-dasharray="4 4"/>
+  <text x="668" y="223" text-anchor="middle" font-size="12.5" fill="var(--muted)">ส่วนนี้อยู่ในเครื่องที่รันเกม/เซิร์ฟเวอร์ — คือสิ่งที่เราตั้งค่า</text>
+</svg>
+</div>
+
+<p class="note"><strong>สรุป:</strong> ค่า IP/Port ที่ใส่ใน TikFinity คือ "ที่อยู่ของเครื่องที่รันเกม" ไม่ใช่ IP ของ TikTok หรือของ TikFinity</p>
+
+<h2 id="install"><span class="num">2</span>ติดตั้ง — เล่นคนเดียว vs เปิดเซิร์ฟเวอร์</h2>
+<p>ไฟล์ jar ตัวเดียวใช้ได้ทั้งสองแบบ วางในโฟลเดอร์ <code>mods</code> เหมือนกัน</p>
+
+<div class="grid">
+  <div class="card">
+    <h3>แบบ A · เล่นคนเดียว (Singleplayer)</h3>
+    <p class="pill ok">ใช้ในเครื่องเล่นเกม</p>
+    <ul>
+      <li>วาง jar ใน <code>.minecraft/mods</code> (หรือ instance ของ Prism)</li>
+      <li>ต้องมี <strong>Fabric API</strong></li>
+      <li>Cloth Config + Mod Menu = ไม่บังคับ (มีไว้ตั้งค่าผ่าน GUI)</li>
+      <li>มอดเริ่ม HTTP server ตั้งแต่หน้าเมนู ยังไม่ต้องเข้าโลก</li>
+      <li>คำสั่งจะไปทำงานในโลกที่เปิดอยู่ (ต้องเข้าโลกก่อนคำสั่งถึงมีผล)</li>
+    </ul>
+    <p>ไฟล์ตั้งค่า: <code>.minecraft/config/tikfinity.toml</code></p>
+  </div>
+  <div class="card">
+    <h3>แบบ B · เปิดเซิร์ฟเวอร์ Fabric</h3>
+    <p class="pill warn">ใช้บนเครื่องเซิร์ฟ / VPS</p>
+    <ul>
+      <li>วาง jar ใน <code>&lt;โฟลเดอร์เซิร์ฟ&gt;/mods</code></li>
+      <li>ต้องมี <strong>Fabric API</strong> (ตัว server)</li>
+      <li>ไม่ต้องมี Cloth Config / Mod Menu — ตั้งค่าผ่านไฟล์หรือคำสั่ง</li>
+      <li>คำสั่งรันด้วยสิทธิ์ระดับ console (เต็ม) โดยอ้างตำแหน่งผู้เล่นคนแรกที่ออนไลน์</li>
+    </ul>
+    <p>ไฟล์ตั้งค่า: <code>&lt;โฟลเดอร์เซิร์ฟ&gt;/config/tikfinity.toml</code></p>
+  </div>
+</div>
+
+<h3>หน้าตาไฟล์ตั้งค่า</h3>
+<pre><code>bindAddress = "127.0.0.1"
+port = 4567
+password = ""</code></pre>
+<p>ไฟล์นี้สร้างเองอัตโนมัติตอนรันครั้งแรก แก้แล้วต้องรีสตาร์ทเกม/เซิร์ฟ หรือใช้คำสั่ง <code>/tikfinity restart</code></p>
+
+<h2 id="fields"><span class="num">3</span>3 ช่องใน TikFinity คืออะไร</h2>
+
+<figure>
+  <img src="assets/tikfinity-setup-screen.jpg" alt="หน้า Minecraft Connection ของ TikFinity มีช่อง IP, Port, Password และปุ่ม Test Connection">
+  <figcaption>TikFinity → Setup → Minecraft Connection</figcaption>
+</figure>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr><th>ช่องใน TikFinity</th><th>หมายถึงอะไร</th><th>ตรงกับค่าไหนในมอด</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IP</strong></td>
+      <td>ที่อยู่ของเครื่องที่รันเกม/เซิร์ฟเวอร์ มองจากเครื่องที่เปิด TikFinity</td>
+      <td>ไม่มีค่าตรง ๆ — แต่ต้องเข้ากับ <code>bindAddress</code> ของมอด</td>
+    </tr>
+    <tr>
+      <td><strong>Port</strong></td>
+      <td>พอร์ตที่มอดเปิดฟังอยู่ ค่าปกติ 4567</td>
+      <td><code>port</code></td>
+    </tr>
+    <tr>
+      <td><strong>Password</strong></td>
+      <td>รหัสที่ส่งไปกับทุก request (header <code>key</code>)</td>
+      <td><code>password</code> — ถ้าเว้นว่างในมอด ช่องนี้ใส่อะไรก็ผ่าน</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3><code>bindAddress</code> ต่างจาก IP ที่ใส่ใน TikFinity ยังไง</h3>
+<p><code>bindAddress</code> = "มอดยอมรับการเชื่อมต่อจากทางไหน" ส่วน IP ในหน้า TikFinity = "TikFinity จะวิ่งไปหาเครื่องไหน" สองอย่างนี้ต้องเข้ากัน</p>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr><th>bindAddress</th><th>ผลลัพธ์</th><th>ใครต่อได้</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>127.0.0.1</code> <span class="pill ok">ค่าเริ่มต้น</span></td>
+      <td>ฟังเฉพาะภายในเครื่องตัวเอง</td>
+      <td>โปรแกรมในเครื่องเดียวกันเท่านั้น</td>
+    </tr>
+    <tr>
+      <td><code>0.0.0.0</code></td>
+      <td>ฟังทุกการ์ดเน็ต — LAN และเน็ตภายนอก (ถ้า firewall เปิด)</td>
+      <td>ใครก็ตามที่วิ่งถึงเครื่องนี้ได้ <span class="pill danger">ต้องตั้ง password</span></td>
+    </tr>
+    <tr>
+      <td><code>192.168.x.x</code> (IP ของเครื่องเอง)</td>
+      <td>ฟังเฉพาะการ์ดเน็ตใบนั้น</td>
+      <td>เครื่องในวง LAN เดียวกัน</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="cases"><span class="num">4</span>3 สถานการณ์ + ค่าที่ต้องใส่</h2>
+
+<div class="diagram-frame">
+<svg class="diagram" viewBox="0 0 880 400" role="img" aria-label="แผนภาพเปรียบเทียบ 3 แบบการต่อ: เครื่องเดียวกัน, ในวง LAN, ผ่านเน็ตไปเซิร์ฟเวอร์">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- Case A -->
+  <text x="16" y="26" font-size="14" font-weight="700" fill="var(--text)">A · เครื่องเดียวกัน</text>
+  <rect x="16" y="40" width="330" height="76" rx="12" fill="var(--surface-2)" stroke="var(--border)" stroke-dasharray="5 4"/>
+  <text x="30" y="60" font-size="11.5" fill="var(--muted)">คอมเครื่องเดียว</text>
+  <rect x="34" y="66" width="130" height="40" rx="9" fill="var(--surface)" stroke="var(--border)"/>
+  <text x="99" y="91" text-anchor="middle" font-size="12.5" fill="var(--text)">TikFinity</text>
+  <rect x="198" y="66" width="130" height="40" rx="9" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="263" y="91" text-anchor="middle" font-size="12.5" fill="var(--text)">เกม + มอด</text>
+  <line x1="166" y1="86" x2="196" y2="86" stroke="currentColor" stroke-width="2" opacity=".55" marker-end="url(#arrow2)"/>
+  <text x="372" y="80" font-size="12.5" fill="var(--muted)">IP <tspan font-weight="600" fill="var(--text)">127.0.0.1</tspan> · Port <tspan font-weight="600" fill="var(--text)">4567</tspan></text>
+  <text x="372" y="100" font-size="12.5" fill="var(--muted)">bind = 127.0.0.1 · password ไม่ต้อง</text>
+
+  <!-- Case B -->
+  <text x="16" y="164" font-size="14" font-weight="700" fill="var(--text)">B · ในวง LAN (บ้านเดียวกัน)</text>
+  <rect x="16" y="178" width="330" height="76" rx="12" fill="var(--surface-2)" stroke="var(--border)" stroke-dasharray="5 4"/>
+  <text x="30" y="198" font-size="11.5" fill="var(--muted)">เราเตอร์ตัวเดียวกัน</text>
+  <rect x="34" y="204" width="130" height="40" rx="9" fill="var(--surface)" stroke="var(--border)"/>
+  <text x="99" y="229" text-anchor="middle" font-size="12.5" fill="var(--text)">เครื่อง TikFinity</text>
+  <rect x="198" y="204" width="130" height="40" rx="9" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="263" y="229" text-anchor="middle" font-size="12.5" fill="var(--text)">เครื่องรันเกม</text>
+  <line x1="166" y1="224" x2="196" y2="224" stroke="currentColor" stroke-width="2" opacity=".55" marker-end="url(#arrow2)"/>
+  <text x="372" y="218" font-size="12.5" fill="var(--muted)">IP <tspan font-weight="600" fill="var(--text)">192.168.x.x</tspan> (IP เครื่องรันเกม)</text>
+  <text x="372" y="238" font-size="12.5" fill="var(--muted)">bind = 0.0.0.0 · เปิด firewall · ควรตั้ง password</text>
+
+  <!-- Case C -->
+  <text x="16" y="302" font-size="14" font-weight="700" fill="var(--text)">C · เซิร์ฟเวอร์ IP นอก (VPS)</text>
+  <rect x="16" y="316" width="150" height="60" rx="12" fill="var(--surface-2)" stroke="var(--border)"/>
+  <text x="91" y="352" text-anchor="middle" font-size="12.5" fill="var(--text)">เครื่องเรา + TikFinity</text>
+  <rect x="240" y="316" width="106" height="60" rx="12" fill="var(--surface-2)" stroke="var(--border)" stroke-dasharray="5 4"/>
+  <text x="293" y="343" text-anchor="middle" font-size="12" fill="var(--muted)">อินเทอร์เน็ต</text>
+  <text x="293" y="360" text-anchor="middle" font-size="11" fill="var(--muted)">/ firewall</text>
+  <rect x="420" y="316" width="150" height="60" rx="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="495" y="352" text-anchor="middle" font-size="12.5" fill="var(--text)">เซิร์ฟ Fabric + มอด</text>
+  <line x1="168" y1="346" x2="238" y2="346" stroke="currentColor" stroke-width="2" opacity=".55" marker-end="url(#arrow2)"/>
+  <line x1="348" y1="346" x2="418" y2="346" stroke="currentColor" stroke-width="2" opacity=".55" marker-end="url(#arrow2)"/>
+  <text x="596" y="340" font-size="12.5" fill="var(--muted)">IP <tspan font-weight="600" fill="var(--text)">public IP ของเซิร์ฟ</tspan></text>
+  <text x="596" y="360" font-size="12.5" fill="var(--muted)">bind = 0.0.0.0 · <tspan fill="var(--danger)" font-weight="600">ต้องตั้ง password</tspan></text>
+</svg>
+</div>
+
+<div class="card">
+  <h3>A · TikFinity กับเกมอยู่เครื่องเดียวกัน <span class="pill ok">ง่ายสุด ปลอดภัยสุด</span></h3>
+  <p>ไม่ต้องแก้อะไรเลย ค่าเริ่มต้นใช้ได้ทันที</p>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>ใส่ใน TikFinity</th><th>ค่าในมอด</th></tr></thead>
+    <tbody>
+      <tr><td>IP <code>127.0.0.1</code><br>Port <code>4567</code><br>Password ปล่อยไว้ (<code>change_me</code> ก็ได้)</td>
+      <td><code>bindAddress = "127.0.0.1"</code><br><code>port = 4567</code><br><code>password = ""</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="card">
+  <h3>B · เครื่อง TikFinity คนละเครื่อง แต่อยู่วง LAN เดียวกัน</h3>
+  <ol>
+    <li>ในเกม พิมพ์ <code>/tikfinity bind all</code> แล้ว <code>/tikfinity password ตั้งรหัสเอง</code></li>
+    <li>ดู IP ของเครื่องที่รันเกมจาก <code>/tikfinity</code> (จะโชว์ <code>192.168.x.x</code> ให้เลย)</li>
+    <li>เปิด firewall พอร์ต 4567 — ดูหัวข้อ <a href="#firewall">Firewall</a></li>
+    <li>ที่ TikFinity ใส่ IP นั้น, Port 4567, Password = รหัสที่ตั้งไว้ แล้วกด Test Connection</li>
+  </ol>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>ใส่ใน TikFinity</th><th>ค่าในมอด</th></tr></thead>
+    <tbody>
+      <tr><td>IP <code>192.168.1.42</code> (ตัวอย่าง)<br>Port <code>4567</code><br>Password <code>รหัสของคุณ</code></td>
+      <td><code>bindAddress = "0.0.0.0"</code><br><code>port = 4567</code><br><code>password = "รหัสของคุณ"</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="card">
+  <h3>C · เซิร์ฟเวอร์ Fabric ที่ IP นอก (VPS / เช่าโฮสต์)</h3>
+  <ol>
+    <li>วาง jar + Fabric API ใน <code>mods</code> ของเซิร์ฟ แล้วสตาร์ทหนึ่งรอบให้ไฟล์ config เกิด</li>
+    <li>แก้ <code>config/tikfinity.toml</code> เป็น <code>bindAddress = "0.0.0.0"</code> และ <strong>ตั้ง password ยาว ๆ</strong></li>
+    <li>เปิดพอร์ต 4567 ที่ firewall ของเครื่อง และที่ security group / control panel ของผู้ให้บริการ</li>
+    <li>รีสตาร์ทเซิร์ฟ หรือใช้ <code>/tikfinity restart</code> จาก console</li>
+    <li>ที่ TikFinity ใส่ public IP ของเซิร์ฟ, Port 4567, Password ที่ตั้งไว้</li>
+  </ol>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>ใส่ใน TikFinity</th><th>ค่าในมอด</th></tr></thead>
+    <tbody>
+      <tr><td>IP <code>203.0.113.10</code> (ตัวอย่าง)<br>Port <code>4567</code><br>Password <code>รหัสยาว ๆ</code></td>
+      <td><code>bindAddress = "0.0.0.0"</code><br><code>port = 4567</code><br><code>password = "รหัสยาว ๆ"</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="danger"><strong>ห้ามข้าม:</strong> พอร์ตนี้สั่งคำสั่งอะไรก็ได้ในเกม ถ้าเปิดออกเน็ตโดยไม่มี password = ใครเจอพอร์ตก็ยึดเซิร์ฟได้</p>
+</div>
+
+<div class="warn">
+  <strong>อยู่หลังเราเตอร์บ้าน แต่อยากให้ต่อจากนอกบ้าน?</strong> ต้องทำ port forward ที่เราเตอร์ (WAN 4567 → LAN IP เครื่องรันเกม 4567) และ IP บ้านส่วนใหญ่เปลี่ยนไปมา — ทางที่นิ่งกว่าคือใช้ VPS หรือ tunnel เช่น Tailscale / Cloudflare Tunnel
+</div>
+
+<h2 id="command"><span class="num">5</span>สั่งจากในเกมด้วย <code>/tikfinity</code></h2>
+<p>ใช้ได้ทั้งในโลก singleplayer และบนเซิร์ฟ (ต้องเป็น op / รันจาก console) ไม่ต้องเปิดไฟล์เอง</p>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>คำสั่ง</th><th>ทำอะไร</th></tr></thead>
+  <tbody>
+    <tr><td><code>/tikfinity</code></td><td>ดูสถานะ + IP/Port ที่ต้องใส่ใน TikFinity (คลิก IP เพื่อคัดลอกได้)</td></tr>
+    <tr><td><code>/tikfinity bind local</code></td><td>ฟังเฉพาะเครื่องนี้ (<code>127.0.0.1</code>)</td></tr>
+    <tr><td><code>/tikfinity bind all</code></td><td>เปิดให้เครื่องอื่นต่อ (<code>0.0.0.0</code>)</td></tr>
+    <tr><td><code>/tikfinity bind "192.168.1.42"</code></td><td>ระบุการ์ดเน็ตเอง</td></tr>
+    <tr><td><code>/tikfinity port 4567</code></td><td>เปลี่ยนพอร์ต</td></tr>
+    <tr><td><code>/tikfinity password "รหัส"</code></td><td>ตั้งรหัส (ต้องใส่ค่าเดียวกันในช่อง Password ของ TikFinity)</td></tr>
+    <tr><td><code>/tikfinity password clear</code></td><td>ลบรหัส</td></tr>
+    <tr><td><code>/tikfinity restart</code></td><td>รีสตาร์ท HTTP server หลังแก้ไฟล์เอง</td></tr>
+  </tbody>
+</table>
+</div>
+<p>ทุกคำสั่งบันทึกลงไฟล์และรีสตาร์ท HTTP server ให้อัตโนมัติ — ไม่ต้องปิดเกม</p>
+
+<p>ตั้งผ่าน GUI ก็ได้: <strong>Mod Menu → TikFinity Connector → ปุ่มตั้งค่า</strong> (ต้องมี Mod Menu + Cloth Config)</p>
+
+<h2 id="firewall"><span class="num">6</span>เปิด Firewall / Port forward</h2>
+
+<h3>Windows</h3>
+<pre><code>netsh advfirewall firewall add rule name="TikFinity 4567" dir=in action=allow protocol=TCP localport=4567</code></pre>
+<p>รันใน PowerShell/CMD แบบ Run as administrator (ลบกฎ: เปลี่ยน <code>add</code> เป็น <code>delete</code>)</p>
+
+<h3>Linux (ufw)</h3>
+<pre><code>sudo ufw allow 4567/tcp</code></pre>
+
+<h3>Linux (firewalld)</h3>
+<pre><code>sudo firewall-cmd --permanent --add-port=4567/tcp
+sudo firewall-cmd --reload</code></pre>
+
+<h3>เช็คว่าต่อได้จริงไหม</h3>
+<p>จากเครื่องที่จะรัน TikFinity:</p>
+<pre><code>curl http://&lt;IP เครื่องรันเกม&gt;:4567/v1/server</code></pre>
+<p>ได้ JSON ที่มี <code>"name": "TikFinity Mod"</code> = ต่อได้ · ค้างหรือ connection refused = firewall ปิด หรือ <code>bindAddress</code> ยังเป็น <code>127.0.0.1</code></p>
+<p>ถ้าตั้ง password ไว้ ต้องส่งไปด้วย:</p>
+<pre><code>curl -H "key: รหัสของคุณ" http://&lt;IP&gt;:4567/v1/server</code></pre>
+
+<h2 id="security"><span class="num">7</span>ความปลอดภัย — อ่านก่อนเปิดออกเน็ต</h2>
+<div class="danger">
+  <strong>พอร์ตนี้รันคำสั่งอะไรก็ได้ในเกม ด้วยสิทธิ์เต็ม</strong> — <code>/op</code>, <code>/ban</code>, <code>/stop</code> ทำได้หมด ใครที่ยิง HTTP ถึงพอร์ตนี้ได้ = ควบคุมเซิร์ฟได้
+</div>
+<ul>
+  <li>ตั้ง <code>password</code> ทุกครั้งที่ <code>bindAddress</code> ไม่ใช่ <code>127.0.0.1</code> — มอดจะเตือนใน log ให้เอง</li>
+  <li>รหัสควรยาวและสุ่ม ไม่ใช่ <code>change_me</code> / <code>1234</code></li>
+  <li>ถ้าจำกัดได้ ให้ firewall เปิดเฉพาะ IP ต้นทางที่รู้จัก</li>
+  <li>การเชื่อมต่อเป็น HTTP ธรรมดา (ไม่เข้ารหัส) — ผ่านเน็ตสาธารณะ ควรใช้ VPN/tunnel แทนการเปิดพอร์ตตรง ๆ</li>
+  <li>เปิดเฉพาะตอนไลฟ์ เสร็จแล้วกลับเป็น <code>/tikfinity bind local</code></li>
+</ul>
+
+<h2 id="trouble"><span class="num">8</span>แก้ปัญหา</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>อาการ</th><th>สาเหตุที่พบบ่อย</th><th>วิธีแก้</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Test Connection ไม่ผ่าน (เครื่องเดียวกัน)</td>
+      <td>เกมยังไม่เปิด หรือพอร์ตชน</td>
+      <td>เปิดเกมค้างไว้ที่เมนูก็พอ · เช็ค log บรรทัด <code>TikFinity HTTP server listening on ...</code></td>
+    </tr>
+    <tr>
+      <td>Test Connection ไม่ผ่าน (คนละเครื่อง)</td>
+      <td><code>bindAddress</code> ยังเป็น <code>127.0.0.1</code> หรือ firewall ปิด</td>
+      <td><code>/tikfinity bind all</code> + เปิดพอร์ตที่ firewall</td>
+    </tr>
+    <tr>
+      <td>ขึ้น Unauthorized / 401</td>
+      <td>password ในมอดกับใน TikFinity ไม่ตรง</td>
+      <td>ใส่ให้ตรงกัน หรือ <code>/tikfinity password clear</code> ถ้าใช้แค่ในเครื่อง</td>
+    </tr>
+    <tr>
+      <td>เตือน "Port ถูกใช้งาน" ในเกม</td>
+      <td>มีโปรแกรมอื่นจองพอร์ต 4567 อยู่ (เซิร์ฟที่เปิดค้าง)</td>
+      <td>ปิดโปรแกรมนั้น หรือ <code>/tikfinity port 4568</code> แล้วแก้ Port ใน TikFinity ตาม</td>
+    </tr>
+    <tr>
+      <td>ต่อได้ แต่คำสั่งไม่เกิดอะไร</td>
+      <td>ยังไม่ได้เข้าโลก / ไม่มีผู้เล่นออนไลน์</td>
+      <td>เข้าโลกก่อน · ดู log บรรทัด <code>Received command:</code> เพื่อยืนยันว่าคำสั่งมาถึง</td>
+    </tr>
+    <tr>
+      <td>คำสั่งที่ใช้ <code>~ ~ ~</code> ไปโผล่ผิดที่</td>
+      <td>ไม่มีผู้เล่นออนไลน์ คำสั่งเลยรันจากจุด spawn</td>
+      <td>ให้มีผู้เล่นอยู่ในเกม — มอดจะอ้างตำแหน่งผู้เล่นคนแรก</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<footer>
+  <p>มอดพัฒนาต่อจาก <a href="https://github.com/jakob-kruse/tikfinity_mod">tikfinity_mod</a> (MIT) · พอร์ตมา Minecraft 26.2 / Fabric</p>
+  <p>หน้านี้เป็นคู่มือการตั้งค่าเท่านั้น ไม่ได้มีส่วนเกี่ยวข้องกับ TikFinity หรือ TikTok</p>
+</footer>
+
+</div>
+</body>
+</html>
